@@ -62,7 +62,7 @@ const ForgotPassword = () => {
       .catch(({ response: { data: error } }) => {
         enqueueSnackbar(
           error
-            ? error.data.message
+            ? error.message
             : 'Error inesperado, por favor intente nuevamente',
           {
             variant: 'error'
@@ -74,7 +74,7 @@ const ForgotPassword = () => {
   return (
     <>
       {isLoading && <LoadingPage />}
-      <Container maxWidth>
+      <Container>
         <ContentStyle>
           <CardStyle>
             <Box mb={2}>

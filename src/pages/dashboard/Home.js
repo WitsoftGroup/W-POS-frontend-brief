@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import { Grid, Typography, Divider } from '@mui/material';
 import { RocketLaunch } from '@mui/icons-material';
 // components
-import { Page, AnalyticsCard, NumberFormattedInput } from '../../components';
+import { AnalyticsCard, NumberFormattedInput } from '../../components';
 
 const CurrencyDataLabel = ({ value, label, ...props }) => (
   <>

@@ -1,9 +1,10 @@
-import { Home } from '@mui/icons-material';
+import { Home, People } from '@mui/icons-material';
 
 // ----------------------------------------------------------------------
 
 const ICONS = {
-  home: <Home />
+  home: <Home />,
+  person: <People />
 };
 
 const sidebarConfig = [
@@ -36,9 +37,9 @@ const sidebarConfig = [
         ]
       },
       {
-        title: 'Users',
-        icon: ICONS.home,
-        href: '/user',
+        title: 'Personas',
+        icon: ICONS.person,
+        href: '/person',
         items: [
           {
             title: 'account',

@@ -14,6 +14,9 @@ import {
   Typography,
   ListSubheader
 } from '@mui/material';
+// redux
+import { useDispatch, useSelector } from 'react-redux';
+import { logout } from '../../redux/slices/auth';
 // components
 import { ScrollBar } from '../../components';
 //
@@ -61,7 +64,7 @@ const reduceChild = ({ array, item, pathname, level }) => {
         info={item.info}
         href={item.href}
         title={item.title}
-        open={match}
+        open={Boolean(match)}
       >
         {renderSidebarItems({
           pathname,
@@ -95,6 +98,10 @@ const renderSidebarItems = ({ items, pathname, level = 0 }) => (
 
 const DashboardSidebar = ({ isOpenSidebar, onCloseSidebar }) => {
   const { pathname } = useLocation();
+  const dispatch = useDispatch();
+  const { user } = useSelector((state) => state.auth);
+
+  const handleLogout = () => dispatch(logout());
 
   useEffect(() => {
     if (isOpenSidebar && onCloseSidebar) {
@@ -114,10 +121,10 @@ const DashboardSidebar = ({ isOpenSidebar, onCloseSidebar }) => {
           <Avatar />
           <Box sx={{ ml: 2 }}>
             <Typography variant="subtitle2" sx={{ color: 'text.primary' }}>
-              Efrain
+              Hola!
             </Typography>
-            <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-              admin
+            <Typography variant="body1">
+              {user?.firstName} {user?.lastName}
             </Typography>
           </Box>
         </AccountStyle>
@@ -151,7 +158,7 @@ const DashboardSidebar = ({ isOpenSidebar, onCloseSidebar }) => {
       ))}
 
       <Box sx={{ px: 2.5, pb: 3, mt: 10 }}>
-        <Button fullWidth to="/" variant="outlined" component={RouterLink}>
+        <Button fullWidth variant="outlined" onClick={handleLogout}>
           Salir
         </Button>
       </Box>

@@ -60,7 +60,7 @@ const ResetPassword = () => {
       .catch(({ response: { data: error } }) => {
         enqueueSnackbar(
           error
-            ? error.data.message
+            ? error.message
             : 'Error inesperado, por favor intente nuevamente',
           {
             variant: 'error'

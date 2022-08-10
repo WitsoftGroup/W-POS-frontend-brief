@@ -60,15 +60,13 @@ const Login = () => {
       .catch(({ response: { data: error } }) => {
         enqueueSnackbar(
           error
-            ? error.data.message
+            ? error.message
             : 'Error inesperado, por favor intente nuevamente',
           {
             variant: 'error'
           }
         );
-        return (
-          error.data.errors && setErrors(getErrorObject(error.data.errors))
-        );
+        return error.errors && setErrors(getErrorObject(error.errors));
       });
   };
 

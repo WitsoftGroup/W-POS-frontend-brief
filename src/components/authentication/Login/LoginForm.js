@@ -104,7 +104,7 @@ const LoginForm = ({ email, remember, documentNumber, onSubmit }) => {
           sx={{ marginBottom: 2 }}
           InputProps={{
             endAdornment: (
-              <InputAdornment>
+              <InputAdornment position="end">
                 <IconButton
                   onClick={() => setShowPassword(!showPassword)}
                   edge="end"

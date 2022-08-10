@@ -24,6 +24,7 @@ const ListItemStyle = styled(ListItem)(({ theme }) => ({
   paddingLeft: theme.spacing(5),
   paddingRight: theme.spacing(2.5),
   color: theme.palette.text.secondary,
+  cursor: 'pointer',
   '&.isActiveRoot': {
     color: theme.palette.primary.main,
     fontWeight: theme.typography.fontWeightMedium,

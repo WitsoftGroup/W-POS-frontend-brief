@@ -39,7 +39,7 @@ const ChangePasswordForm = ({
     //   /^(?=.*[A-Z])/,
     //   'Su nueva contraseña debe tener al menos una letra mayúscula'
     // ),
-    passwordConfirm: Yup.string()
+    confirmPassword: Yup.string()
       .required('Por favor repita su nueva contraseña')
       .oneOf([Yup.ref('newPassword'), null], 'Las contraseñas no coinciden')
   };
@@ -57,7 +57,7 @@ const ChangePasswordForm = ({
     initialValues: {
       currentPassword: '',
       newPassword: '',
-      passwordConfirm: ''
+      confirmPassword: ''
     },
     validationSchema: hasCurrentPasswordField
       ? PasswordSchemaHasCurrentPassword
@@ -83,7 +83,7 @@ const ChangePasswordForm = ({
             helperText={touched.currentPassword && errors.currentPassword}
             InputProps={{
               endAdornment: (
-                <InputAdornment>
+                <InputAdornment position="end">
                   <IconButton
                     onClick={() => setShowCurrentPassword(!showCurrentPassword)}
                     edge="end"
@@ -112,7 +112,7 @@ const ChangePasswordForm = ({
           sx={{ marginBottom: 2 }}
           InputProps={{
             endAdornment: (
-              <InputAdornment>
+              <InputAdornment position="end">
                 <IconButton
                   onClick={() => setShowNewPassword(!showNewPassword)}
                   edge="end"
@@ -130,17 +130,17 @@ const ChangePasswordForm = ({
         />
         <TextField
           fullWidth
-          name="passwordConfirm"
+          name="confirmPassword"
           label="Repetir contraseña"
           placeholder="Repita su nueva contraseña"
           type={showPasswordConfirm ? 'text' : 'password'}
-          {...getFieldProps('passwordConfirm')}
-          error={Boolean(touched.passwordConfirm && errors.passwordConfirm)}
-          helperText={touched.passwordConfirm && errors.passwordConfirm}
+          {...getFieldProps('confirmPassword')}
+          error={Boolean(touched.confirmPassword && errors.confirmPassword)}
+          helperText={touched.confirmPassword && errors.confirmPassword}
           sx={{ marginBottom: 2 }}
           InputProps={{
             endAdornment: (
-              <InputAdornment>
+              <InputAdornment position="end">
                 <IconButton
                   onClick={() => setShowPasswordConfirm(!showPasswordConfirm)}
                   edge="end"
