@@ -11,7 +11,7 @@ import { PATH_AUTH } from 'routes/paths';
 // components
 import ChangePasswordForm from 'components/authentication/ChangePasswordForm';
 // pages
-import LoadingSpinner from 'components/LoadingSpinner';
+import LoadingSpinner from 'components/ui-components/LoadingSpinner';
 
 // ----------------------------------------------------------------------
 
