@@ -9,7 +9,7 @@ import LoginForm from 'components/authentication/LoginForm';
 import { login, setRemember } from 'redux/slices/auth';
 import { getErrorObject } from 'utils/error';
 
-import LoadingSpinner from 'components/LoadingSpinner';
+import LoadingSpinner from 'components/ui-components/LoadingSpinner';
 
 // ----------------------------------------------------------------------
 
