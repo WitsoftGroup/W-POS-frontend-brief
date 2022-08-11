@@ -1,15 +1,13 @@
 import React, { Fragment, Suspense, lazy } from 'react';
-// router
+
 import { Routes, Route } from 'react-router-dom';
-// components
-import { RouteProgress } from '../components';
-// layout
-import DashboardLayout from '../layouts/dashboard';
-// guards
-import AuthGuard from '../guards/AuthGuard';
-import LoggedGuard from '../guards/LoggedGuard';
-// paths
-import { PATH_AUTH, PATH_HOME } from './paths';
+
+import RouteProgress from 'components/ui-components/RouteProgress';
+import DashboardLayout from 'components/layouts/DashboardLayout';
+import AuthGuard from 'guards/AuthGuard';
+import LoggedGuard from 'guards/LoggedGuard';
+
+import { PATH_AUTH, PATH_HOME, PATH_PERSON } from './paths';
 
 export const renderRoutesList = (routes = []) =>
   routes.map((route, index) => {
@@ -55,17 +53,17 @@ export const routes = [
   {
     path: PATH_AUTH.login,
     guard: LoggedGuard,
-    component: lazy(() => import('../pages/authentication/Login'))
+    component: lazy(() => import('pages/authentication/Login'))
   },
   {
     path: PATH_AUTH.forgotPassword,
     guard: LoggedGuard,
-    component: lazy(() => import('../pages/authentication/ForgotPassword'))
+    component: lazy(() => import('pages/authentication/ForgotPassword'))
   },
   {
     path: PATH_AUTH.changePassword,
     guard: LoggedGuard,
-    component: lazy(() => import('../pages/authentication/ResetPassword'))
+    component: lazy(() => import('pages/authentication/ResetPassword'))
   },
   // private routes for logged user ------------------------
   {
@@ -75,36 +73,32 @@ export const routes = [
       // home
       {
         path: PATH_HOME.root,
-        component: lazy(() => import('../pages/dashboard/Home'))
+        component: lazy(() => import('pages/Dashboard'))
       },
       {
         path: '/',
-        component: lazy(() => import('../pages/dashboard/Home'))
+        component: lazy(() => import('pages/Dashboard'))
       },
       {
         path: '/home/profile',
-        component: lazy(() => import('../pages/dashboard/Home'))
+        component: lazy(() => import('pages/Dashboard'))
       },
       {
         path: '/home/cards',
-        component: lazy(() => import('../pages/dashboard/Home'))
+        component: lazy(() => import('pages/Dashboard'))
       },
       {
         path: '/home/list',
-        component: lazy(() => import('../pages/dashboard/Home'))
+        component: lazy(() => import('pages/Dashboard'))
       },
       {
-        path: '/user',
-        component: lazy(() => import('../pages/dashboard/Home'))
-      },
-      {
-        path: '/user/account',
-        component: lazy(() => import('../pages/dashboard/Home'))
+        path: PATH_PERSON.users,
+        component: lazy(() => import('pages/Dashboard'))
       }
     ]
   },
   {
     path: '*',
-    component: lazy(() => import('../pages/Page404'))
+    component: lazy(() => import('pages/error/Page404'))
   }
 ];

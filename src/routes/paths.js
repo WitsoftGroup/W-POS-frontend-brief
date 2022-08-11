@@ -13,3 +13,8 @@ export const PATH_AUTH = {
 export const PATH_HOME = {
   root: ROOT_HOME
 };
+
+export const PATH_PERSON = {
+  root: '/person',
+  users: path('/person', '/users')
+};

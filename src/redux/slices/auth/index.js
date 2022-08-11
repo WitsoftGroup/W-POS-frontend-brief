@@ -1,9 +1,8 @@
-// redux toolkit
 import { createSlice } from '@reduxjs/toolkit';
-// jwt decode
 import jwtDecode from 'jwt-decode';
-// axios
-import axios from '../../../utils/axios';
+
+// axios client
+import axios from 'utils/axios';
 
 export const authSlice = createSlice({
   name: 'auth',

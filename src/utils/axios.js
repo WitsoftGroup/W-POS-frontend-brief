@@ -1,8 +1,8 @@
 // axios
 import axios from 'axios';
-// redux
-import { reduxStore } from '../App';
-import { logout, fetchRefreshToken } from '../redux/slices/auth';
+
+import { reduxStore } from 'App';
+import { logout, fetchRefreshToken } from 'redux/slices/auth';
 
 const axiosInstance = axios.create();
 
