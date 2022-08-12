@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 import PropTypes from 'prop-types';
 import { Link as RouterLink, useLocation } from 'react-router-dom';
@@ -15,9 +15,11 @@ import {
   Typography,
   ListSubheader
 } from '@mui/material';
+import { useSnackbar } from 'notistack';
 
 import { logout } from 'redux/slices/auth';
 import ScrollBar from 'components/ui-components/ScrollBar';
+import Modal from 'components/ui-components/Modal';
 
 import MenuLinks from './utils/SidebarConfig';
 import SidebarItem from './components/SidebarItem';
@@ -96,11 +98,23 @@ const renderSidebarItems = ({ items, pathname, level = 0 }) => (
 );
 
 const DashboardSidebar = ({ isOpenSidebar, onCloseSidebar }) => {
+  const [openModal, setOpenModal] = useState(false);
   const { pathname } = useLocation();
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.auth);
+  const { enqueueSnackbar } = useSnackbar();
 
-  const handleLogout = () => dispatch(logout());
+  const handleLogout = () => {
+    dispatch(logout()).then(() => {
+      enqueueSnackbar('Vuelve pronto!', {
+        variant: 'success'
+      });
+    });
+  };
+
+  const handleExit = () => setOpenModal(true);
+
+  const handleCloseModal = () => setOpenModal(false);
 
   useEffect(() => {
     if (isOpenSidebar && onCloseSidebar) {
@@ -157,7 +171,7 @@ const DashboardSidebar = ({ isOpenSidebar, onCloseSidebar }) => {
       ))}
 
       <Box sx={{ px: 2.5, pb: 3, mt: 10 }}>
-        <Button fullWidth variant="outlined" onClick={handleLogout}>
+        <Button fullWidth variant="outlined" onClick={handleExit}>
           Salir
         </Button>
       </Box>
@@ -166,6 +180,14 @@ const DashboardSidebar = ({ isOpenSidebar, onCloseSidebar }) => {
 
   return (
     <RootStyle>
+      <Modal
+        open={openModal}
+        title="Deseas salir del sistema?"
+        okButtonText="Salir"
+        onOk={handleLogout}
+        onCancel={handleCloseModal}
+        onClose={handleCloseModal}
+      />
       <Hidden lgUp>
         <Drawer
           open={isOpenSidebar}

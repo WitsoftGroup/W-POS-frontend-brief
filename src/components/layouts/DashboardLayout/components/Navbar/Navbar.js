@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import PropTypes from 'prop-types';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import {
   Box,
   AppBar,
@@ -12,9 +12,12 @@ import {
 } from '@mui/material';
 import { Menu, Brightness4, BrightnessHigh } from '@mui/icons-material';
 import { alpha, experimentalStyled as styled } from '@mui/material/styles';
+import { useSnackbar } from 'notistack';
 
+import { logout } from 'redux/slices/auth';
 import { useSettings } from 'hooks';
 import { LAYOUT } from 'utils/constants';
+import Modal from 'components/ui-components/Modal';
 
 import AccountPopover from './components/AccountPopover';
 
@@ -41,10 +44,36 @@ const ToolbarStyle = styled(Toolbar)(({ theme }) => ({
 // ----------------------------------------------------------------------
 
 const DashboardNavbar = ({ onOpenSidebar }) => {
+  const [openModal, setOpenModal] = useState(false);
+
   const { user } = useSelector((state) => state.auth);
   const { themeMode, toggleMode } = useSettings();
+
+  const dispatch = useDispatch();
+  const { enqueueSnackbar } = useSnackbar();
+
+  const handleLogout = () => {
+    dispatch(logout()).then(() => {
+      enqueueSnackbar('Vuelve pronto!', {
+        variant: 'success'
+      });
+    });
+  };
+
+  const handleExit = () => setOpenModal(true);
+
+  const handleCloseModal = () => setOpenModal(false);
+
   return (
     <RootStyle>
+      <Modal
+        open={openModal}
+        title="Está seguro de querer salir?"
+        okButtonText="Salir"
+        onOk={handleLogout}
+        onCancel={handleCloseModal}
+        onClose={handleCloseModal}
+      />
       <ToolbarStyle>
         <Hidden lgUp>
           <IconButton
@@ -64,7 +93,7 @@ const DashboardNavbar = ({ onOpenSidebar }) => {
           <Switch checked={!(themeMode === 'light')} onChange={toggleMode} />
         </Box>
         <Box>
-          <AccountPopover user={user} />
+          <AccountPopover user={user} onExit={handleExit} />
         </Box>
       </ToolbarStyle>
     </RootStyle>
