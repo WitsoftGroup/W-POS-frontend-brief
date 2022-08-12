@@ -133,6 +133,7 @@ const SidebarItem = ({
     <ListItemStyle
       to={href}
       disableGutters
+      state={{ title }}
       component={RouterLink}
       className={isSubItem ? 'isActiveSub' : 'isActiveRoot'}
     >

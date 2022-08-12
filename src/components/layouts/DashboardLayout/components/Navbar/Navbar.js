@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 
+import { useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { useSelector, useDispatch } from 'react-redux';
 import {
@@ -8,7 +9,8 @@ import {
   Hidden,
   Toolbar,
   IconButton,
-  Switch
+  Switch,
+  Typography
 } from '@mui/material';
 import { Menu, Brightness4, BrightnessHigh } from '@mui/icons-material';
 import { alpha, experimentalStyled as styled } from '@mui/material/styles';
@@ -48,6 +50,7 @@ const DashboardNavbar = ({ onOpenSidebar }) => {
 
   const { user } = useSelector((state) => state.auth);
   const { themeMode, toggleMode } = useSettings();
+  const { state } = useLocation();
 
   const dispatch = useDispatch();
   const { enqueueSnackbar } = useSnackbar();
@@ -68,7 +71,7 @@ const DashboardNavbar = ({ onOpenSidebar }) => {
     <RootStyle>
       <Modal
         open={openModal}
-        title="Está seguro de querer salir?"
+        title="Deseas salir del sistema?"
         okButtonText="Salir"
         onOk={handleLogout}
         onCancel={handleCloseModal}
@@ -82,6 +85,15 @@ const DashboardNavbar = ({ onOpenSidebar }) => {
           >
             <Menu />
           </IconButton>
+        </Hidden>
+        <Hidden smDown>
+          <Typography
+            variant="h4"
+            ml={3.5}
+            color={(theme) => theme.palette.text.primary}
+          >
+            {state?.title}
+          </Typography>
         </Hidden>
         <Box sx={{ flexGrow: 1 }} />
         <Box px={4} sx={{ display: 'flex', alignItems: 'center' }}>

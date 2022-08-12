@@ -6,7 +6,11 @@ import logo from 'assets/logo/logo-witsoft.png';
 
 const PoweredBy = () => (
   <Box px={3} py={1}>
-    <Typography variant="body1" textAlign="center">
+    <Typography
+      variant="body1"
+      textAlign="center"
+      color={(theme) => theme.palette.text.disabled}
+    >
       Powered by
     </Typography>
     <Box display="flex" alignItems="center" justifyContent="center">

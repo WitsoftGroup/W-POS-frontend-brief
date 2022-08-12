@@ -93,7 +93,7 @@ export const routes = [
       },
       {
         path: PATH_PERSON.users,
-        component: lazy(() => import('pages/Dashboard'))
+        component: lazy(() => import('pages/person/users/UserList'))
       }
     ]
   },
