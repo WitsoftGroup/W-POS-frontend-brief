@@ -10,6 +10,7 @@ import {
   Toolbar,
   IconButton,
   Switch,
+  Breadcrumbs,
   Typography
 } from '@mui/material';
 import { Menu, Brightness4, BrightnessHigh } from '@mui/icons-material';
@@ -50,7 +51,7 @@ const DashboardNavbar = ({ onOpenSidebar }) => {
 
   const { user } = useSelector((state) => state.auth);
   const { themeMode, toggleMode } = useSettings();
-  const { state } = useLocation();
+  const { pathname } = useLocation();
 
   const dispatch = useDispatch();
   const { enqueueSnackbar } = useSnackbar();
@@ -87,13 +88,21 @@ const DashboardNavbar = ({ onOpenSidebar }) => {
           </IconButton>
         </Hidden>
         <Hidden smDown>
-          <Typography
-            variant="h4"
-            ml={3.5}
-            color={(theme) => theme.palette.text.primary}
-          >
-            {state?.title}
-          </Typography>
+          <Breadcrumbs aria-label="breadcrumb" sx={{ ml: 2 }}>
+            {pathname.split('/').map((item, index, arr) => (
+              <Typography
+                key={index}
+                variant="h6"
+                fontWeight={
+                  arr.length - 1 === index
+                    ? 'fontWeightBold'
+                    : 'fontWeightRegular'
+                }
+              >
+                {item}
+              </Typography>
+            ))}
+          </Breadcrumbs>
         </Hidden>
         <Box sx={{ flexGrow: 1 }} />
         <Box px={4} sx={{ display: 'flex', alignItems: 'center' }}>
