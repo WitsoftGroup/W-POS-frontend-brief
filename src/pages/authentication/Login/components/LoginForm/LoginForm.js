@@ -20,7 +20,7 @@ import { useFormik, Form, FormikProvider } from 'formik';
 // yup
 import * as Yup from 'yup';
 // paths
-import { PATH_AUTH } from '../../../routes/paths';
+import { PATH_AUTH } from '../../../../../routes/paths';
 
 const LoginForm = ({ email, remember, documentNumber, onSubmit }) => {
   const [showPassword, setShowPassword] = useState(false);

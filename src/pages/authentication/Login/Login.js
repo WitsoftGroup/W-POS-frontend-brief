@@ -5,11 +5,11 @@ import { Card, Container, Typography, Box } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { useSnackbar } from 'notistack';
 
-import LoginForm from 'components/authentication/LoginForm';
+import LoadingSpinner from 'components/ui-components/LoadingSpinner';
 import { login, setRemember } from 'redux/slices/auth';
 import { getErrorObject } from 'utils/error';
 
-import LoadingSpinner from 'components/ui-components/LoadingSpinner';
+import LoginForm from './components/LoginForm';
 
 // ----------------------------------------------------------------------
 

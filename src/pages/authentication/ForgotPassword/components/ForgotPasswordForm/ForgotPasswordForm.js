@@ -11,7 +11,7 @@ import { useFormik, Form, FormikProvider } from 'formik';
 // yup
 import * as Yup from 'yup';
 // paths
-import { PATH_AUTH } from '../../../routes/paths';
+import { PATH_AUTH } from '../../../../../routes/paths';
 
 const ForgotPasswordForm = ({ onSubmit }) => {
   const navigate = useNavigate();

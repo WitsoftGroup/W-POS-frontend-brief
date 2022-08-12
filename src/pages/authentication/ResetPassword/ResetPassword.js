@@ -8,10 +8,9 @@ import { useSnackbar } from 'notistack';
 
 import { resetPassword } from 'redux/slices/auth';
 import { PATH_AUTH } from 'routes/paths';
-// components
-import ChangePasswordForm from 'components/authentication/ChangePasswordForm';
-// pages
 import LoadingSpinner from 'components/ui-components/LoadingSpinner';
+
+import ChangePasswordForm from './components/ChangePasswordForm';
 
 // ----------------------------------------------------------------------
 

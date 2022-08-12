@@ -2,7 +2,6 @@ import PropTypes from 'prop-types';
 import SimpleBarReact from 'simplebar-react';
 // material
 import { alpha, experimentalStyled as styled } from '@mui/material/styles';
-import { Box } from '@mui/material';
 
 // ----------------------------------------------------------------------
 
@@ -35,28 +34,13 @@ const SimpleBarStyle = styled(SimpleBarReact)(({ theme }) => ({
 
 // ----------------------------------------------------------------------
 
-const Scrollbar = ({ children, sx, ...other }) => {
-  const isMobile =
-    /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
-      navigator.userAgent
-    );
-
-  if (isMobile) {
-    return (
-      <Box sx={{ overflowX: 'auto', ...sx }} {...other}>
-        {children}
-      </Box>
-    );
-  }
-
-  return (
-    <RootStyle>
-      <SimpleBarStyle timeout={500} clickOnTrack={false} sx={sx} {...other}>
-        {children}
-      </SimpleBarStyle>
-    </RootStyle>
-  );
-};
+const Scrollbar = ({ children, sx, ...other }) => (
+  <RootStyle>
+    <SimpleBarStyle timeout={500} clickOnTrack={false} sx={sx} {...other}>
+      {children}
+    </SimpleBarStyle>
+  </RootStyle>
+);
 
 Scrollbar.propTypes = {
   children: PropTypes.node.isRequired,

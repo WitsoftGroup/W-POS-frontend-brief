@@ -8,9 +8,9 @@ import { useSnackbar } from 'notistack';
 
 import { forgotPassword } from 'redux/slices/auth';
 import { PATH_AUTH } from 'routes/paths';
-import ForgotPasswordForm from 'components/authentication/ForgotPasswordForm';
-
 import LoadingWrapper from 'components/ui-components/LoadingSpinner';
+
+import ForgotPasswordForm from './components/ForgotPasswordForm';
 
 // custom styles -----------------------------------
 

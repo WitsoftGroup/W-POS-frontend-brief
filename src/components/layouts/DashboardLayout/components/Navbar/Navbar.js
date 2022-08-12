@@ -37,7 +37,7 @@ const ToolbarStyle = styled(Toolbar)(({ theme }) => ({
   minHeight: LAYOUT.APPBAR_MOBILE,
   [theme.breakpoints.up('lg')]: {
     minHeight: LAYOUT.APPBAR_DESKTOP,
-    padding: theme.spacing(0, 5)
+    padding: theme.spacing(0, 3)
   }
 }));
 
