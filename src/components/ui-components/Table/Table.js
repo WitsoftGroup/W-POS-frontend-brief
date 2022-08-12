@@ -61,6 +61,7 @@ function applySortFilter(array, comparator, query) {
 
 const Row = ({
   row,
+  hover,
   rowIndex,
   renderRowDetails,
   hasCheckbox,
@@ -75,12 +76,15 @@ const Row = ({
   return (
     <>
       <TableRow
-        hover
+        hover={hover}
         key={rowIndex}
         tabIndex={-1}
         role="checkbox"
+        cursor="pointer"
+        sx={{
+          cursor: hover ? 'pointer' : 'default'
+        }}
         selected={isItemSelected}
-        sx={{ cursor: 'pointer' }}
         aria-checked={isItemSelected}
         onClick={(event) => handleSelectedRow(event)}
       >
@@ -121,6 +125,7 @@ const Row = ({
 
 Row.propTypes = {
   row: PropTypes.object,
+  hover: PropTypes.bool,
   rowIndex: PropTypes.number,
   renderRowDetails: PropTypes.func,
   cellSchema: PropTypes.array,
@@ -142,6 +147,7 @@ const TableX = ({
   hasCheckbox = true,
   hasPagination = true,
   hasCollapse = false,
+  rowHovered = false,
   onSelect,
   onRowSelected,
   onChangeRowsPerPage,
@@ -222,6 +228,7 @@ const TableX = ({
             return (
               <Row
                 row={row}
+                hover={rowHovered}
                 key={rowIndex}
                 rowIndex={rowIndex}
                 renderRowDetails={renderRowDetails}
@@ -261,6 +268,10 @@ const TableX = ({
           page={page}
           onPageChange={handleChangePage}
           onRowsPerPageChange={handleChangeRowsPerPage}
+          sx={{
+            height: 50,
+            overflowY: 'inherit'
+          }}
         />
       )}
     </>
@@ -270,6 +281,7 @@ const TableX = ({
 TableX.propTypes = {
   count: PropTypes.number,
   page: PropTypes.number,
+  rowHovered: PropTypes.bool,
   renderRowDetails: PropTypes.func,
   rowsPerPage: PropTypes.number,
   selected: PropTypes.array,

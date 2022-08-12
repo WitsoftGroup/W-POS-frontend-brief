@@ -23,10 +23,10 @@ const MainStyle = styled('div')(({ theme }) => ({
   flexGrow: 1,
   overflow: 'auto',
   minHeight: '100%',
-  paddingTop: LAYOUT.APPBAR_MOBILE + 24,
+  paddingTop: LAYOUT.APPBAR_MOBILE + 16,
   paddingBottom: theme.spacing(10),
   [theme.breakpoints.up('lg')]: {
-    paddingTop: LAYOUT.APPBAR_DESKTOP + 24,
+    paddingTop: LAYOUT.APPBAR_DESKTOP + 8,
     paddingLeft: theme.spacing(0),
     paddingRight: theme.spacing(0)
   }

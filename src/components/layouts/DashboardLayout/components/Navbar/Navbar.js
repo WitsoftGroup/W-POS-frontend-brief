@@ -93,6 +93,7 @@ const DashboardNavbar = ({ onOpenSidebar }) => {
               <Typography
                 key={index}
                 variant="h6"
+                textTransform="capitalize"
                 fontWeight={
                   arr.length - 1 === index
                     ? 'fontWeightBold'
