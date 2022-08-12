@@ -23,6 +23,7 @@ import Modal from 'components/ui-components/Modal';
 
 import MenuLinks from './utils/SidebarConfig';
 import SidebarItem from './components/SidebarItem';
+import PoweredBy from './components/PoweredBy/PoweredBy';
 
 // ----------------------------------------------------------------------
 
@@ -197,6 +198,7 @@ const DashboardSidebar = ({ isOpenSidebar, onCloseSidebar }) => {
           }}
         >
           {renderContent}
+          <PoweredBy />
         </Drawer>
       </Hidden>
       <Hidden lgDown>
@@ -208,6 +210,7 @@ const DashboardSidebar = ({ isOpenSidebar, onCloseSidebar }) => {
           }}
         >
           {renderContent}
+          <PoweredBy />
         </Drawer>
       </Hidden>
     </RootStyle>
