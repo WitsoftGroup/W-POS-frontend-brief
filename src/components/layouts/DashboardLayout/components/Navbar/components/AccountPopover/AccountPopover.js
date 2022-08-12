@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 
 import PropTypes from 'prop-types';
-import { useDispatch } from 'react-redux';
 import {
   IconButton,
   Avatar,
@@ -11,9 +10,6 @@ import {
   Button
 } from '@mui/material';
 import { styled, alpha } from '@mui/material/styles';
-import { useSnackbar } from 'notistack';
-
-import { logout } from 'redux/slices/auth';
 
 // custom styles--------------------------------------------------------
 
@@ -36,11 +32,8 @@ const ArrowStyle = styled('span')(({ theme }) => ({
 
 // ----------------------------------------------------------------------
 
-const AccountPopover = ({ user = {} }) => {
+const AccountPopover = ({ user = {}, onExit }) => {
   const [open, setOpen] = useState(false);
-
-  const dispatch = useDispatch();
-  const { enqueueSnackbar } = useSnackbar();
 
   const handleOpen = () => {
     setOpen(true);
@@ -50,13 +43,7 @@ const AccountPopover = ({ user = {} }) => {
     setOpen(false);
   };
 
-  const handleLogout = () => {
-    dispatch(logout()).then(() => {
-      enqueueSnackbar('Vuelve pronto!', {
-        variant: 'success'
-      });
-    });
-  };
+  const handleExit = () => onExit && onExit();
 
   return (
     <>
@@ -114,7 +101,7 @@ const AccountPopover = ({ user = {} }) => {
             fullWidth
             color="inherit"
             variant="outlined"
-            onClick={handleLogout}
+            onClick={handleExit}
           >
             Salir
           </Button>
@@ -125,7 +112,8 @@ const AccountPopover = ({ user = {} }) => {
 };
 
 AccountPopover.propTypes = {
-  user: PropTypes.object
+  user: PropTypes.object,
+  onExit: PropTypes.func
 };
 
 export default AccountPopover;
