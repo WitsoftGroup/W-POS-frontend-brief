@@ -27,16 +27,19 @@ export const documentTypes = [
 
 export const userStatus = [
   {
-    value: 'OK',
-    label: 'Activo'
+    value: 'ACTIVE',
+    label: 'Activo',
+    color: 'success'
   },
   {
     value: 'INACTIVE',
-    label: 'Inactivo'
+    label: 'Inactivo',
+    color: 'error'
   },
   {
     value: 'NEED_UPDATE_PASSWORD',
-    label: 'Necesita actualizar contraseña'
+    label: 'Necesita actualizar contraseña',
+    color: 'warning'
   }
 ];
 

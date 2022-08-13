@@ -5,7 +5,7 @@ import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/lib/integration/react';
 import { LocalizationProvider } from '@mui/lab';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
-import { ptBR } from 'date-fns/locale';
+import { es } from 'date-fns/locale';
 
 import { store, persistor } from 'redux/store';
 import { routes, renderRoutes } from 'routes';
@@ -16,7 +16,7 @@ const App = () => (
   <Provider store={store}>
     <PersistGate loading={null} persistor={persistor}>
       <ThemeConfig>
-        <LocalizationProvider locale={ptBR} dateAdapter={AdapterDateFns}>
+        <LocalizationProvider locale={es} dateAdapter={AdapterDateFns}>
           <NotistackProvider>
             <Router>{renderRoutes(routes)}</Router>
           </NotistackProvider>

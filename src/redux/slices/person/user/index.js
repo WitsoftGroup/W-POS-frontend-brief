@@ -12,7 +12,8 @@ export const commonSlice = createSlice({
       limit: 10
     },
     userStates: {
-      isFetchingUsers: false
+      isFetchingUsers: false.valueOf,
+      filters: {}
     }
   },
   reducers: {
@@ -35,22 +36,26 @@ export const { setUserList, setUserStates } = commonSlice.actions;
 
 export default commonSlice.reducer;
 
-export const fetchUsers =
-  (queryString = '') =>
-  (dispatch) => {
-    dispatch(setUserStates({ isFetchingUsers: true }));
-    return new Promise((resolve, reject) => {
-      axios
-        .get(`/user?${queryString}`)
-        .then(({ data: result }) => {
-          dispatch(setUserList(result.data));
-          resolve(result.data);
-        })
-        .catch((error) => {
-          reject(error);
-        })
-        .finally(() => {
-          dispatch(setUserStates({ isFetchingUsers: false }));
-        });
-    });
-  };
+export const fetchUsers = (queryParams) => (dispatch) => {
+  dispatch(setUserStates({ isFetchingUsers: true }));
+
+  let query = '';
+  if (queryParams) {
+    query = `?${new URLSearchParams(queryParams).toString()}`;
+  }
+
+  return new Promise((resolve, reject) => {
+    axios
+      .get(`/user${query}`)
+      .then(({ data: result }) => {
+        dispatch(setUserList(result.data));
+        resolve(result.data);
+      })
+      .catch((error) => {
+        reject(error);
+      })
+      .finally(() => {
+        dispatch(setUserStates({ isFetchingUsers: false }));
+      });
+  });
+};

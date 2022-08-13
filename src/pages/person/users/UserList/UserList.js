@@ -4,18 +4,19 @@ import { useSelector, useDispatch } from 'react-redux';
 import {
   Box,
   Card,
-  Grid,
+  Chip,
   Button,
   Tooltip,
   IconButton,
   Typography
 } from '@mui/material';
 import { experimentalStyled as styled } from '@mui/material/styles';
-import { Add, Visibility } from '@mui/icons-material';
+import { Add, Edit, Delete } from '@mui/icons-material';
 
-import { fetchUsers } from 'redux/slices/person/user';
+import { fetchUsers, setUserList } from 'redux/slices/person/user';
 import Table from 'components/ui-components/Table';
 import LoadingSpinner from 'components/ui-components/LoadingSpinner';
+import { userStatus } from 'utils/options';
 
 const StyledCard = styled(Card)(({ theme }) => ({
   padding: theme.spacing(2)
@@ -23,8 +24,8 @@ const StyledCard = styled(Card)(({ theme }) => ({
 
 const UserList = () => {
   const {
-    userList,
-    userStates: { isFetchingUsers }
+    userList: { data: users, limit, skip, total },
+    userStates: { isFetchingUsers, filters }
   } = useSelector((state) => state.person.user);
 
   const dispatch = useDispatch();
@@ -32,11 +33,11 @@ const UserList = () => {
   const schema = [
     {
       columnName: 'firstName',
-      columnLabel: 'Nombre'
+      columnLabel: 'Nombre(s)'
     },
     {
       columnName: 'lastName',
-      columnLabel: 'Apellido'
+      columnLabel: 'Apellido(s)'
     },
     {
       columnName: 'documentNumber',
@@ -47,8 +48,32 @@ const UserList = () => {
       columnLabel: 'Email'
     },
     {
+      columnName: 'status',
+      columnLabel: 'Status',
+      columnProps: {
+        align: 'center'
+      },
+      cellProps: {
+        align: 'center'
+      },
+      render: (_, data) => {
+        const status = userStatus.find(
+          (option) => option.value === data.user?.status
+        );
+        return (
+          status && (
+            <Chip
+              variant="outlined"
+              label={status.label}
+              color={status.color}
+            />
+          )
+        );
+      }
+    },
+    {
       columnName: 'actions',
-      columnLabel: '',
+      columnLabel: 'Acciones',
       columnProps: {
         align: 'center'
       },
@@ -57,18 +82,33 @@ const UserList = () => {
         width: '10px'
       },
       render: () => (
-        <Tooltip title="Ver detalles" placement="top">
-          <IconButton>
-            <Visibility />
-          </IconButton>
-        </Tooltip>
+        <Box display="flex">
+          <Tooltip title="Editar usuario" placement="top">
+            <IconButton>
+              <Edit color="primary" />
+            </IconButton>
+          </Tooltip>
+          <Tooltip title="Eliminar usuario" placement="top">
+            <IconButton>
+              <Delete color="warning" />
+            </IconButton>
+          </Tooltip>
+        </Box>
       )
     }
   ];
 
+  const handleChangePage = (newPage) => {
+    dispatch(setUserList({ skip: newPage * limit }));
+  };
+
+  const handleChangeRowsPerPage = (newRowsPerPage) => {
+    dispatch(setUserList({ limit: newRowsPerPage }));
+  };
+
   useEffect(() => {
-    dispatch(fetchUsers());
-  }, [dispatch]);
+    dispatch(fetchUsers({ skip, limit, ...filters }));
+  }, [dispatch, skip, limit, filters]);
 
   return (
     <>
@@ -82,20 +122,18 @@ const UserList = () => {
           &nbsp;Agregar usuario
         </Button>
       </Box>
-      <Grid container spacing={2}>
-        <Grid item xs={12} md={7}>
-          <StyledCard>
-            <Table
-              hasCheckbox={false}
-              cellSchema={schema}
-              sourceData={userList.data}
-            />
-          </StyledCard>
-        </Grid>
-        <Grid item xs={12} md={5}>
-          <StyledCard>algo aqui</StyledCard>
-        </Grid>
-      </Grid>
+      <StyledCard>
+        <Table
+          hasCheckbox={false}
+          cellSchema={schema}
+          count={total}
+          rowsPerPage={limit}
+          page={skip / limit}
+          onChangePage={handleChangePage}
+          onChangeRowsPerPage={handleChangeRowsPerPage}
+          sourceData={users}
+        />
+      </StyledCard>
     </>
   );
 };
