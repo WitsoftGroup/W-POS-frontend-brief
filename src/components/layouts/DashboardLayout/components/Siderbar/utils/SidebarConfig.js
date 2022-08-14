@@ -1,42 +1,22 @@
-import { Home, People } from '@mui/icons-material';
+import { Home, People, AccountBox } from '@mui/icons-material';
 // paths
-import { PATH_PERSON } from 'routes/paths';
+import { PATH_HOME, PATH_PERSON, PATH_PROFILE } from 'routes/paths';
 
 // ----------------------------------------------------------------------
 
 const ICONS = {
   home: <Home />,
-  person: <People />
+  person: <People />,
+  profile: <AccountBox />
 };
 
 const sidebarConfig = [
-  // GENERAL
-  // ----------------------------------------------------------------------
   {
-    subheader: 'general',
     items: [
       {
         title: 'Dashboard',
         icon: ICONS.home,
-        href: '/home',
-        items: [
-          {
-            title: 'profile',
-            href: '/home/profile'
-          },
-          {
-            title: 'cards',
-            href: '/home/cards'
-          },
-          {
-            title: 'list',
-            href: '/home/list'
-          },
-          {
-            title: 'account',
-            href: '/home/account'
-          }
-        ]
+        href: PATH_HOME.root
       },
       {
         title: 'Personas',
@@ -48,6 +28,11 @@ const sidebarConfig = [
             href: PATH_PERSON.users
           }
         ]
+      },
+      {
+        title: 'Mi perfil',
+        icon: ICONS.profile,
+        href: PATH_PROFILE.root
       }
     ]
   }

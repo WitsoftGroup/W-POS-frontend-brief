@@ -1,8 +1,9 @@
 const path = (root, subpath) => `${root}${subpath}`;
 
 const ROOT_AUTH = '/auth';
-const ROOT_HOME = '/home';
+const ROOT_HOME = '/inicio';
 const ROOT_PERSON = '/personas';
+const ROOT_PROFILE = '/perfil';
 
 export const PATH_AUTH = {
   root: ROOT_AUTH,
@@ -18,4 +19,8 @@ export const PATH_HOME = {
 export const PATH_PERSON = {
   root: ROOT_PERSON,
   users: path(ROOT_PERSON, '/usuarios')
+};
+
+export const PATH_PROFILE = {
+  root: ROOT_PROFILE
 };

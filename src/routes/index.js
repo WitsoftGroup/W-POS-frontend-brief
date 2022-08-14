@@ -1,13 +1,13 @@
 import React, { Fragment, Suspense, lazy } from 'react';
 
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
 
 import RouteProgress from 'components/ui-components/RouteProgress';
 import DashboardLayout from 'components/layouts/DashboardLayout';
 import AuthGuard from 'guards/AuthGuard';
 import LoggedGuard from 'guards/LoggedGuard';
 
-import { PATH_AUTH, PATH_HOME, PATH_PERSON } from './paths';
+import { PATH_AUTH, PATH_HOME, PATH_PERSON, PATH_PROFILE } from './paths';
 
 export const renderRoutesList = (routes = []) =>
   routes.map((route, index) => {
@@ -77,18 +77,10 @@ export const routes = [
       },
       {
         path: '/',
-        component: lazy(() => import('pages/Dashboard'))
+        component: () => <Navigate replace to={PATH_HOME.root} />
       },
       {
-        path: '/home/profile',
-        component: lazy(() => import('pages/Dashboard'))
-      },
-      {
-        path: '/home/cards',
-        component: lazy(() => import('pages/Dashboard'))
-      },
-      {
-        path: '/home/list',
+        path: PATH_PROFILE.root,
         component: lazy(() => import('pages/Dashboard'))
       },
       {

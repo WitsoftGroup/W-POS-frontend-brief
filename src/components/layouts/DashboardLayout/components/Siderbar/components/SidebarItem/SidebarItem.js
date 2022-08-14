@@ -22,7 +22,7 @@ const ListItemStyle = styled(ListItem)(({ theme }) => ({
   height: 40,
   fontSize: theme.typography.pxToRem(16),
   textTransform: 'capitalize',
-  paddingLeft: theme.spacing(5),
+  paddingLeft: theme.spacing(2.5),
   paddingRight: theme.spacing(2.5),
   color: theme.palette.text.secondary,
   cursor: 'pointer',
@@ -43,6 +43,27 @@ const ListItemStyle = styled(ListItem)(({ theme }) => ({
       backgroundColor: theme.palette.primary.main
     }
   },
+  '&.isNoItemsActiveRoot': {
+    paddingLeft: theme.spacing(0),
+    paddingRight: theme.spacing(0),
+    '& .Mui-selected': {
+      color: theme.palette.primary.main,
+      fontWeight: theme.typography.fontWeightMedium,
+      backgroundColor: alpha(
+        theme.palette.primary.main,
+        theme.palette.action.selectedOpacity
+      ),
+      '&:before': {
+        top: 0,
+        right: 0,
+        width: 3,
+        bottom: 0,
+        content: "''",
+        position: 'absolute',
+        backgroundColor: theme.palette.primary.main
+      }
+    }
+  },
   '&.isActiveSub': {
     '&:hover': {
       backgroundColor: alpha(
@@ -54,17 +75,17 @@ const ListItemStyle = styled(ListItem)(({ theme }) => ({
       '&:hover': {
         backgroundColor: 'transparent'
       }
-    }
-  },
-  '&.isActiveSub .Mui-selected': {
-    color: theme.palette.text.primary,
-    fontWeight: theme.typography.fontWeightMedium,
-    '&.MuiListItemButton-root': {
-      backgroundColor: 'transparent'
     },
-    '& .subIcon:before': {
-      transform: 'scale(2)',
-      backgroundColor: theme.palette.primary.main
+    '& .Mui-selected': {
+      color: theme.palette.text.primary,
+      fontWeight: theme.typography.fontWeightMedium,
+      '&.MuiListItemButton-root': {
+        backgroundColor: 'transparent'
+      },
+      '& .subIcon:before': {
+        transform: 'scale(2)',
+        backgroundColor: theme.palette.primary.main
+      }
     }
   }
 }));
@@ -134,9 +155,8 @@ const SidebarItem = ({
     <ListItemStyle
       to={href}
       disableGutters
-      state={{ title }}
       component={RouterLink}
-      className={isSubItem ? 'isActiveSub' : 'isActiveRoot'}
+      className={isSubItem ? 'isActiveSub' : 'isNoItemsActiveRoot'}
     >
       <ListItemButton selected={pathname.includes(href)}>
         <ListItemIcon>

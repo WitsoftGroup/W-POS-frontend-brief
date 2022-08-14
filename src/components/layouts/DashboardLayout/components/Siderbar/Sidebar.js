@@ -20,6 +20,7 @@ import { useSnackbar } from 'notistack';
 import { logout } from 'redux/slices/auth';
 import ScrollBar from 'components/ui-components/ScrollBar';
 import Modal from 'components/ui-components/Modal';
+import { PATH_PROFILE } from 'routes/paths';
 
 import MenuLinks from './utils/SidebarConfig';
 import SidebarItem from './components/SidebarItem';
@@ -126,11 +127,12 @@ const DashboardSidebar = ({ isOpenSidebar, onCloseSidebar }) => {
 
   const renderContent = (
     <ScrollBar>
-      <Box sx={{ px: 2.5, py: 3 }}>
-        <RouterLink to="/">Logo</RouterLink>
+      <Box sx={{ px: 2.5, py: 2 }}>
+        <Typography variant="h4" color="primary" letterSpacing={3}>
+          {process.env.REACT_APP_PARTNER_NAME}
+        </Typography>
       </Box>
-
-      <Link underline="none" component={RouterLink} to="/">
+      <Link underline="none" component={RouterLink} to={PATH_PROFILE.root}>
         <AccountStyle>
           <Avatar />
           <Box sx={{ ml: 2 }}>
@@ -144,10 +146,10 @@ const DashboardSidebar = ({ isOpenSidebar, onCloseSidebar }) => {
         </AccountStyle>
       </Link>
 
-      {MenuLinks.map((list) => (
+      {MenuLinks.map((list, index) => (
         <List
           disablePadding
-          key={list.subheader}
+          key={index}
           subheader={
             <ListSubheader
               disableSticky
