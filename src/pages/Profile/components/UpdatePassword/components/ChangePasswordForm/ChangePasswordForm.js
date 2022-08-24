@@ -1,0 +1,180 @@
+import React, { useState } from 'react';
+// prop types
+import PropTypes from 'prop-types';
+// components
+import {
+  TextField,
+  InputAdornment,
+  IconButton,
+  Button,
+  Box
+} from '@mui/material';
+import { Visibility, VisibilityOff, Lock } from '@mui/icons-material';
+import { useFormik, Form, FormikProvider } from 'formik';
+// yup
+import * as Yup from 'yup';
+
+const ChangePasswordForm = ({
+  buttonFullWidth = true,
+  hasCurrentPasswordField = true,
+  onSubmit
+}) => {
+  const [showCurrentPassword, setShowCurrentPassword] = useState(false);
+  const [showNewPassword, setShowNewPassword] = useState(false);
+  const [showPasswordConfirm, setShowPasswordConfirm] = useState(false);
+
+  const passwordSchema = {
+    newPassword: Yup.string()
+      .required('Por favor digite su nueva contraseña')
+      .min(8, 'Su nueva contraseña debe tener al menos 8 caracteres')
+      .matches(
+        /^(?=.*[0-9])/,
+        'Su nueva contraseña debe tener al menos un dígito'
+      )
+      .matches(
+        /^(?=.*[a-zA-Z])/,
+        'Su nueva contraseña debe tener al menos una letra'
+      ),
+    // .matches(
+    //   /^(?=.*[A-Z])/,
+    //   'Su nueva contraseña debe tener al menos una letra mayúscula'
+    // ),
+    confirmPassword: Yup.string()
+      .required('Por favor repita su nueva contraseña')
+      .oneOf([Yup.ref('newPassword'), null], 'Las contraseñas no coinciden')
+  };
+
+  const PasswordSchema = Yup.object().shape(passwordSchema);
+
+  const PasswordSchemaHasCurrentPassword = Yup.object().shape({
+    password: Yup.string().required('Por favor digite su contraseña actual'),
+    ...passwordSchema
+  });
+
+  const formik = useFormik({
+    initialValues: {
+      password: '',
+      newPassword: '',
+      confirmPassword: ''
+    },
+    validationSchema: hasCurrentPasswordField
+      ? PasswordSchemaHasCurrentPassword
+      : PasswordSchema,
+    onSubmit: (data, formikHelpers) => onSubmit(data, formikHelpers)
+  });
+
+  const { errors, touched, handleSubmit, getFieldProps } = formik;
+
+  return (
+    <FormikProvider value={formik}>
+      <Form autoComplete="off" noValidate onSubmit={handleSubmit}>
+        {hasCurrentPasswordField && (
+          <TextField
+            fullWidth
+            size="small"
+            name="password"
+            label="Contraseña actual"
+            sx={{ marginBottom: 3 }}
+            placeholder="Digite su contraseña actual"
+            type={showCurrentPassword ? 'text' : 'password'}
+            {...getFieldProps('password')}
+            error={Boolean(touched.password && errors.password)}
+            helperText={touched.password && errors.password}
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  <IconButton
+                    onClick={() => setShowCurrentPassword(!showCurrentPassword)}
+                    edge="end"
+                  >
+                    {showCurrentPassword ? <Visibility /> : <VisibilityOff />}
+                  </IconButton>
+                </InputAdornment>
+              ),
+              startAdornment: (
+                <InputAdornment position="start">
+                  <Lock />
+                </InputAdornment>
+              )
+            }}
+          />
+        )}
+        <TextField
+          fullWidth
+          size="small"
+          name="newPassword"
+          label="Nueva contraseña"
+          placeholder="Digite su nueva contraseña"
+          type={showNewPassword ? 'text' : 'password'}
+          {...getFieldProps('newPassword')}
+          error={Boolean(touched.newPassword && errors.newPassword)}
+          helperText={touched.newPassword && errors.newPassword}
+          sx={{ marginBottom: 3 }}
+          InputProps={{
+            endAdornment: (
+              <InputAdornment position="end">
+                <IconButton
+                  onClick={() => setShowNewPassword(!showNewPassword)}
+                  edge="end"
+                >
+                  {showNewPassword ? <Visibility /> : <VisibilityOff />}
+                </IconButton>
+              </InputAdornment>
+            ),
+            startAdornment: (
+              <InputAdornment position="start">
+                <Lock />
+              </InputAdornment>
+            )
+          }}
+        />
+        <TextField
+          fullWidth
+          size="small"
+          name="confirmPassword"
+          label="Repetir contraseña"
+          placeholder="Repita su nueva contraseña"
+          type={showPasswordConfirm ? 'text' : 'password'}
+          {...getFieldProps('confirmPassword')}
+          error={Boolean(touched.confirmPassword && errors.confirmPassword)}
+          helperText={touched.confirmPassword && errors.confirmPassword}
+          sx={{ marginBottom: 3 }}
+          InputProps={{
+            endAdornment: (
+              <InputAdornment position="end">
+                <IconButton
+                  onClick={() => setShowPasswordConfirm(!showPasswordConfirm)}
+                  edge="end"
+                >
+                  {showPasswordConfirm ? <Visibility /> : <VisibilityOff />}
+                </IconButton>
+              </InputAdornment>
+            ),
+            startAdornment: (
+              <InputAdornment position="start">
+                <Lock />
+              </InputAdornment>
+            )
+          }}
+        />
+        <Box sx={{ marginTop: 1, display: 'flex', justifyContent: 'flex-end' }}>
+          <Button
+            fullWidth={buttonFullWidth}
+            variant="contained"
+            type="primary"
+          >
+            Enviar
+          </Button>
+        </Box>
+      </Form>
+    </FormikProvider>
+  );
+};
+
+ChangePasswordForm.propTypes = {
+  buttonFullWidth: PropTypes.bool,
+  hasCurrentPasswordField: PropTypes.bool,
+  onSubmit: PropTypes.func
+};
+
+export default ChangePasswordForm;

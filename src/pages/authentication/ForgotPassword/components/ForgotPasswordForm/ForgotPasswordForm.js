@@ -11,7 +11,7 @@ import { useFormik, Form, FormikProvider } from 'formik';
 // yup
 import * as Yup from 'yup';
 // paths
-import { PATH_AUTH } from '../../../routes/paths';
+import { PATH_AUTH } from '../../../../../routes/paths';
 
 const ForgotPasswordForm = ({ onSubmit }) => {
   const navigate = useNavigate();
@@ -37,6 +37,7 @@ const ForgotPasswordForm = ({ onSubmit }) => {
       <Form autoComplete="off" noValidate onSubmit={handleSubmit}>
         <TextField
           fullWidth
+          size="small"
           name="email"
           type="email"
           label="E-mail"
@@ -59,14 +60,13 @@ const ForgotPasswordForm = ({ onSubmit }) => {
               fullWidth
               variant="outlined"
               type="primary"
-              size="large"
               onClick={() => navigate(PATH_AUTH.login)}
             >
               Volver
             </Button>
           </Grid>
           <Grid item xs={6}>
-            <Button fullWidth variant="contained" type="primary" size="large">
+            <Button fullWidth variant="contained" type="primary">
               Enviar
             </Button>
           </Grid>

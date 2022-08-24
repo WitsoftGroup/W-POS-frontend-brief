@@ -102,6 +102,7 @@ const ChangePasswordForm = ({
         )}
         <TextField
           fullWidth
+          size="small"
           name="newPassword"
           label="Nueva contraseña"
           placeholder="Digite su nueva contraseña"
@@ -109,7 +110,7 @@ const ChangePasswordForm = ({
           {...getFieldProps('newPassword')}
           error={Boolean(touched.newPassword && errors.newPassword)}
           helperText={touched.newPassword && errors.newPassword}
-          sx={{ marginBottom: 2 }}
+          sx={{ marginBottom: 3 }}
           InputProps={{
             endAdornment: (
               <InputAdornment position="end">
@@ -130,6 +131,7 @@ const ChangePasswordForm = ({
         />
         <TextField
           fullWidth
+          size="small"
           name="confirmPassword"
           label="Repetir contraseña"
           placeholder="Repita su nueva contraseña"
@@ -137,7 +139,7 @@ const ChangePasswordForm = ({
           {...getFieldProps('confirmPassword')}
           error={Boolean(touched.confirmPassword && errors.confirmPassword)}
           helperText={touched.confirmPassword && errors.confirmPassword}
-          sx={{ marginBottom: 2 }}
+          sx={{ marginBottom: 3 }}
           InputProps={{
             endAdornment: (
               <InputAdornment position="end">
@@ -156,12 +158,12 @@ const ChangePasswordForm = ({
             )
           }}
         />
-        <Box sx={{ marginTop: 4, display: 'flex', justifyContent: 'flex-end' }}>
+        <Box sx={{ marginTop: 1, display: 'flex', justifyContent: 'center' }}>
           <Button
             fullWidth={buttonFullWidth}
             variant="contained"
             type="primary"
-            size="large"
+            sx={{ px: 5 }}
           >
             Enviar
           </Button>

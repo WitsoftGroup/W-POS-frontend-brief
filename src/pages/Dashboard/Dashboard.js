@@ -5,8 +5,9 @@ import PropTypes from 'prop-types';
 import { Grid, Typography, Divider } from '@mui/material';
 import { RocketLaunch } from '@mui/icons-material';
 // components
-import AnalyticsCard from 'components/dashboard/AnalyticsCard';
 import NumberFormattedInput from 'components/ui-components/form/NumberInput';
+
+import AnalyticsCard from './components/AnalyticsCard';
 
 const CurrencyDataLabel = ({ value, label, ...props }) => (
   <>

@@ -20,19 +20,19 @@ export default function Table(theme) {
           borderBottom: 'none'
         },
         head: {
+          paddingBottom: theme.spacing(1),
+          paddingTop: theme.spacing(1),
           color: theme.palette.text.secondary,
           backgroundColor: theme.palette.background.neutral,
           '&:first-of-type': {
             paddingLeft: theme.spacing(3),
             borderTopLeftRadius: theme.shape.borderRadius,
-            borderBottomLeftRadius: theme.shape.borderRadius,
-            boxShadow: `inset 8px 0 0 ${theme.palette.background.paper}`
+            borderBottomLeftRadius: theme.shape.borderRadius
           },
           '&:last-of-type': {
             paddingRight: theme.spacing(3),
             borderTopRightRadius: theme.shape.borderRadius,
-            borderBottomRightRadius: theme.shape.borderRadius,
-            boxShadow: `inset -8px 0 0 ${theme.palette.background.paper}`
+            borderBottomRightRadius: theme.shape.borderRadius
           }
         },
         stickyHeader: {
@@ -40,6 +40,8 @@ export default function Table(theme) {
           backgroundImage: `linear-gradient(to bottom, ${theme.palette.background.neutral} 0%, ${theme.palette.background.neutral} 100%)`
         },
         body: {
+          paddingBottom: theme.spacing(1),
+          paddingTop: theme.spacing(1),
           '&:first-of-type': {
             paddingLeft: theme.spacing(3)
           },

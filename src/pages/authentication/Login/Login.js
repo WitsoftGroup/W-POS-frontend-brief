@@ -5,11 +5,11 @@ import { Card, Container, Typography, Box } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { useSnackbar } from 'notistack';
 
-import LoginForm from 'components/authentication/LoginForm';
+import LoadingSpinner from 'components/ui-components/LoadingSpinner';
 import { login, setRemember } from 'redux/slices/auth';
 import { getErrorObject } from 'utils/error';
 
-import LoadingSpinner from 'components/ui-components/LoadingSpinner';
+import LoginForm from './components/LoginForm';
 
 // ----------------------------------------------------------------------
 
@@ -28,7 +28,7 @@ const CardStyle = styled(Card)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'center',
-  padding: theme.spacing(4, 2),
+  padding: theme.spacing(4, 3),
   margin: theme.spacing(0)
 }));
 
@@ -40,11 +40,10 @@ const Login = () => {
   const { enqueueSnackbar } = useSnackbar();
 
   const onSubmit = (data, { setErrors }) => {
-    const { email, password, remember: changedRemember, documentNumber } = data;
+    const { password, remember: changedRemember, documentNumber } = data;
     dispatch(setRemember(changedRemember));
     dispatch(
       login({
-        email,
         password,
         documentNumber
       })
@@ -79,7 +78,10 @@ const Login = () => {
               </Typography>
             </Box>
             <LoginForm
-              {...(remember && { ...user })}
+              {...(remember && {
+                ...user,
+                documentNumber: user?.documentNumber?.toString()
+              })}
               remember={remember}
               onSubmit={onSubmit}
             />

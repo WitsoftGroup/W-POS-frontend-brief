@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 
+import { useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { useSelector, useDispatch } from 'react-redux';
 import {
@@ -8,7 +9,9 @@ import {
   Hidden,
   Toolbar,
   IconButton,
-  Switch
+  Switch,
+  Breadcrumbs,
+  Typography
 } from '@mui/material';
 import { Menu, Brightness4, BrightnessHigh } from '@mui/icons-material';
 import { alpha, experimentalStyled as styled } from '@mui/material/styles';
@@ -37,7 +40,7 @@ const ToolbarStyle = styled(Toolbar)(({ theme }) => ({
   minHeight: LAYOUT.APPBAR_MOBILE,
   [theme.breakpoints.up('lg')]: {
     minHeight: LAYOUT.APPBAR_DESKTOP,
-    padding: theme.spacing(0, 5)
+    padding: theme.spacing(0, 3)
   }
 }));
 
@@ -48,6 +51,7 @@ const DashboardNavbar = ({ onOpenSidebar }) => {
 
   const { user } = useSelector((state) => state.auth);
   const { themeMode, toggleMode } = useSettings();
+  const { pathname } = useLocation();
 
   const dispatch = useDispatch();
   const { enqueueSnackbar } = useSnackbar();
@@ -68,7 +72,7 @@ const DashboardNavbar = ({ onOpenSidebar }) => {
     <RootStyle>
       <Modal
         open={openModal}
-        title="Está seguro de querer salir?"
+        title="Deseas salir del sistema?"
         okButtonText="Salir"
         onOk={handleLogout}
         onCancel={handleCloseModal}
@@ -82,6 +86,24 @@ const DashboardNavbar = ({ onOpenSidebar }) => {
           >
             <Menu />
           </IconButton>
+        </Hidden>
+        <Hidden smDown>
+          <Breadcrumbs aria-label="breadcrumb" sx={{ ml: 2 }}>
+            {pathname.split('/').map((item, index, arr) => (
+              <Typography
+                key={index}
+                variant="h6"
+                textTransform="capitalize"
+                fontWeight={
+                  arr.length - 1 === index
+                    ? 'fontWeightBold'
+                    : 'fontWeightRegular'
+                }
+              >
+                {item}
+              </Typography>
+            ))}
+          </Breadcrumbs>
         </Hidden>
         <Box sx={{ flexGrow: 1 }} />
         <Box px={4} sx={{ display: 'flex', alignItems: 'center' }}>

@@ -65,7 +65,7 @@ export const login = (data) => (dispatch) => {
       .post('/auth/login', data)
       .then((response) => {
         const { accessToken, refreshToken } = response.data.data;
-        dispatch(loginSuccess(jwtDecode(accessToken).user));
+        dispatch(loginSuccess(jwtDecode(accessToken)));
         dispatch(setSession({ accessToken, refreshToken }));
         dispatch(setIsLoading(false));
         resolve(response);
@@ -181,16 +181,11 @@ export const resetPassword = (data) => (dispatch) => {
 // ------------------------------------------------------
 
 export const updatePassword = (data) => (dispatch) => {
-  const { currentPassword, newPassword, passwordConfirm } = data;
   dispatch(setIsLoading(true));
 
   return new Promise((resolve, reject) => {
     axios
-      .post('/auth/update-password', {
-        currentPassword,
-        newPassword,
-        passwordConfirm
-      })
+      .post('/auth/update-password', data)
       .then((response) => {
         dispatch(setIsLoading(false));
         resolve(response);

@@ -18,7 +18,7 @@ const ArrowStyle = styled('span')(({ theme }) => ({
     top: -7,
     zIndex: 1,
     width: 12,
-    right: 38,
+    right: 16,
     height: 12,
     content: "''",
     position: 'absolute',
@@ -33,14 +33,15 @@ const ArrowStyle = styled('span')(({ theme }) => ({
 // ----------------------------------------------------------------------
 
 const AccountPopover = ({ user = {}, onExit }) => {
-  const [open, setOpen] = useState(false);
+  const [anchorEl, setAnchorEl] = useState(null);
+  const open = Boolean(anchorEl);
 
-  const handleOpen = () => {
-    setOpen(true);
+  const handleOpen = (event) => {
+    setAnchorEl(event.currentTarget);
   };
 
   const handleClose = () => {
-    setOpen(false);
+    setAnchorEl(null);
   };
 
   const handleExit = () => onExit && onExit();
@@ -71,10 +72,11 @@ const AccountPopover = ({ user = {}, onExit }) => {
 
       <Popover
         keepMounted
+        open={open}
+        anchorEl={anchorEl}
+        onClose={handleClose}
         anchorOrigin={{ horizontal: 'right', vertical: 'top' }}
         transformOrigin={{ vertical: 'top', horizontal: 'right' }}
-        open={open}
-        onClose={handleClose}
         PaperProps={{
           sx: {
             mt: 8,

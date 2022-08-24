@@ -2,10 +2,12 @@ import { configureStore } from '@reduxjs/toolkit';
 // redux persist
 import { persistStore, persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
+
 // slices
 import settings from './slices/settings';
 import common from './slices/common';
 import auth from './slices/auth';
+import person from './slices/person';
 
 // persist config -------------------------------------------
 
@@ -32,7 +34,8 @@ const store = configureStore({
   reducer: {
     settings: persistReducer(settingsPersistConfig, settings),
     common,
-    auth: persistReducer(authPersistConfig, auth)
+    auth: persistReducer(authPersistConfig, auth),
+    person
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

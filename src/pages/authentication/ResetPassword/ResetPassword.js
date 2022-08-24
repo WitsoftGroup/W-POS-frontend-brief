@@ -8,10 +8,9 @@ import { useSnackbar } from 'notistack';
 
 import { resetPassword } from 'redux/slices/auth';
 import { PATH_AUTH } from 'routes/paths';
-// components
-import ChangePasswordForm from 'components/authentication/ChangePasswordForm';
-// pages
 import LoadingSpinner from 'components/ui-components/LoadingSpinner';
+
+import ChangePasswordForm from './components/ChangePasswordForm';
 
 // ----------------------------------------------------------------------
 
@@ -30,7 +29,7 @@ const CardStyle = styled(Card)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'center',
-  padding: theme.spacing(4, 2),
+  padding: theme.spacing(4, 3),
   margin: theme.spacing(0)
 }));
 
@@ -78,6 +77,7 @@ const ResetPassword = () => {
               </Typography>
             </Box>
             <ChangePasswordForm
+              buttonFullWidth={false}
               hasCurrentPasswordField={false}
               onSubmit={onSubmit}
             />
