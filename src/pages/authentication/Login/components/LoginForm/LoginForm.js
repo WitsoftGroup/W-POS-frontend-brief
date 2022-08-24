@@ -5,7 +5,6 @@ import PropTypes from 'prop-types';
 import { Link as RouterLInk } from 'react-router-dom';
 // material
 import {
-  TextField,
   InputAdornment,
   IconButton,
   Button,
@@ -20,30 +19,20 @@ import { useFormik, Form, FormikProvider } from 'formik';
 // yup
 import * as Yup from 'yup';
 // paths
-import { PATH_AUTH } from '../../../../../routes/paths';
+import { PATH_AUTH } from 'routes/paths';
+import NumberInput from 'components/ui-components/form/NumberInput';
+import TextInput from 'components/ui-components/form/TextInput';
 
-const LoginForm = ({ email, remember, documentNumber, onSubmit }) => {
+const LoginForm = ({ remember, documentNumber, onSubmit }) => {
   const [showPassword, setShowPassword] = useState(false);
 
   const LoginSchema = Yup.object().shape({
-    email: Yup.string()
-      .email('Por favor digite un e-mail válido')
-      .required('Por favor digite su e-mail'),
     password: Yup.string().required('Por favor digite su contraseña'),
-    documentNumber: Yup.number()
-      .typeError('La cédula debe contener sólo números')
-      // .test(
-      //   'len',
-      //   'La cédula debe tener al menos 7 dígitos',
-      //   (val) => val && val.toString().length > 6
-      // )
-      .positive('La cédula no puede ser un número negativo')
-      .required('Por favor digite su cédula')
+    documentNumber: Yup.string().required('Por favor digite su documento')
   });
 
   const formik = useFormik({
     initialValues: {
-      email: email || '',
       remember,
       password: '',
       documentNumber: documentNumber || ''
@@ -52,20 +41,20 @@ const LoginForm = ({ email, remember, documentNumber, onSubmit }) => {
     onSubmit: (data, formikHelpers) => onSubmit(data, formikHelpers)
   });
 
-  const { errors, touched, values, handleSubmit, getFieldProps } = formik;
+  const { errors, values, handleSubmit, getFieldProps } = formik;
 
   return (
     <FormikProvider value={formik}>
       <Form autoComplete="off" noValidate onSubmit={handleSubmit}>
-        <TextField
+        <NumberInput
           fullWidth
+          prefix=""
+          size="small"
           name="documentNumber"
           label="Cédula"
           placeholder="Digite su cédula"
           {...getFieldProps('documentNumber')}
-          error={Boolean(touched.documentNumber && errors.documentNumber)}
-          helperText={touched.documentNumber && errors.documentNumber}
-          sx={{ marginBottom: 4 }}
+          error={errors.documentNumber}
           InputProps={{
             startAdornment: (
               <InputAdornment position="start">
@@ -73,8 +62,11 @@ const LoginForm = ({ email, remember, documentNumber, onSubmit }) => {
               </InputAdornment>
             )
           }}
+          formControlProps={{
+            sx: { marginBottom: 3 }
+          }}
         />
-        <TextField
+        {/* <TextField
           fullWidth
           name="email"
           type="email"
@@ -91,17 +83,17 @@ const LoginForm = ({ email, remember, documentNumber, onSubmit }) => {
               </InputAdornment>
             )
           }}
-        />
-        <TextField
-          fullWidth
+        /> */}
+        <TextInput
           name="password"
           label="Contraseña"
           placeholder="Digite su contraseña"
           type={showPassword ? 'text' : 'password'}
           {...getFieldProps('password')}
-          error={Boolean(touched.password && errors.password)}
-          helperText={touched.password && errors.password}
-          sx={{ marginBottom: 2 }}
+          error={errors.password}
+          formControlProps={{
+            sx: { marginBottom: 1 }
+          }}
           InputProps={{
             endAdornment: (
               <InputAdornment position="end">
@@ -134,21 +126,21 @@ const LoginForm = ({ email, remember, documentNumber, onSubmit }) => {
                 checked={values.remember}
               />
             }
-            label="Recordarme"
+            label="Recordar mi cédula"
           />
           <Link to={PATH_AUTH.forgotPassword} component={RouterLInk}>
             Olvidé mi contraseña
           </Link>
         </Box>
-        <Button
-          fullWidth
-          variant="contained"
-          type="primary"
-          size="large"
-          sx={{ marginTop: 4 }}
-        >
-          Entrar
-        </Button>
+        <Box display="flex" justifyContent="center">
+          <Button
+            variant="contained"
+            type="primary"
+            sx={{ marginTop: 3, px: 5 }}
+          >
+            Entrar
+          </Button>
+        </Box>
       </Form>
     </FormikProvider>
   );

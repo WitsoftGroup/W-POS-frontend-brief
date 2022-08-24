@@ -11,12 +11,14 @@ import {
   Typography
 } from '@mui/material';
 import { experimentalStyled as styled } from '@mui/material/styles';
-import { Add, Edit, Delete } from '@mui/icons-material';
+import { Add, EditOutlined, DeleteOutline, Upgrade } from '@mui/icons-material';
 
 import { fetchUsers, setUserList } from 'redux/slices/person/user';
 import Table from 'components/ui-components/Table';
 import LoadingSpinner from 'components/ui-components/LoadingSpinner';
 import { userStatus } from 'utils/options';
+
+import UserFilters from './components/UserFilters';
 
 const StyledCard = styled(Card)(({ theme }) => ({
   padding: theme.spacing(2)
@@ -81,18 +83,26 @@ const UserList = () => {
         align: 'center',
         width: '10px'
       },
-      render: () => (
-        <Box display="flex">
+      render: (_, data) => (
+        <Box display="flex" justifyContent="center">
           <Tooltip title="Editar usuario" placement="top">
             <IconButton>
-              <Edit color="primary" />
+              <EditOutlined color="primary" />
             </IconButton>
           </Tooltip>
-          <Tooltip title="Eliminar usuario" placement="top">
-            <IconButton>
-              <Delete color="warning" />
-            </IconButton>
-          </Tooltip>
+          {data.user?.status !== 'INACTIVE' ? (
+            <Tooltip title="Eliminar usuario" placement="top">
+              <IconButton>
+                <DeleteOutline color="error" />
+              </IconButton>
+            </Tooltip>
+          ) : (
+            <Tooltip title="Activar usuario" placement="top">
+              <IconButton>
+                <Upgrade color="success" />
+              </IconButton>
+            </Tooltip>
+          )}
         </Box>
       )
     }
@@ -116,13 +126,19 @@ const UserList = () => {
       <Typography variant="h4" mb={2}>
         Lista de usuarios
       </Typography>
-      <Box display="flex" justifyContent="end" mb={1}>
-        <Button variant="contained">
-          <Add />
-          &nbsp;Agregar usuario
-        </Button>
-      </Box>
       <StyledCard>
+        <Box
+          display="flex"
+          alignItems="center"
+          justifyContent="space-between"
+          mb={2}
+        >
+          <UserFilters />
+          <Button variant="contained">
+            <Add />
+            &nbsp;Agregar usuario
+          </Button>
+        </Box>
         <Table
           hasCheckbox={false}
           cellSchema={schema}

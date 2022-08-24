@@ -1,13 +1,25 @@
-import { Home, People, AccountBox } from '@mui/icons-material';
+import {
+  Home,
+  People,
+  AccountBox,
+  MiscellaneousServices
+} from '@mui/icons-material';
+
 // paths
-import { PATH_HOME, PATH_PERSON, PATH_PROFILE } from 'routes/paths';
+import {
+  PATH_HOME,
+  PATH_PERSON,
+  PATH_PROFILE,
+  PATH_SERVICE
+} from 'routes/paths';
 
 // ----------------------------------------------------------------------
 
 const ICONS = {
   home: <Home />,
   person: <People />,
-  profile: <AccountBox />
+  profile: <AccountBox />,
+  services: <MiscellaneousServices />
 };
 
 const sidebarConfig = [
@@ -17,6 +29,17 @@ const sidebarConfig = [
         title: 'Dashboard',
         icon: ICONS.home,
         href: PATH_HOME.root
+      },
+      {
+        title: 'Servicios',
+        icon: ICONS.services,
+        href: PATH_SERVICE.root,
+        items: [
+          {
+            title: 'SOAT',
+            href: PATH_SERVICE.soat
+          }
+        ]
       },
       {
         title: 'Personas',

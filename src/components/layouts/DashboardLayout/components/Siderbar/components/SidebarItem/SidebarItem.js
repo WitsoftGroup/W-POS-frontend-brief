@@ -44,7 +44,7 @@ const ListItemStyle = styled(ListItem)(({ theme }) => ({
     }
   },
   '&.isNoItemsActiveRoot': {
-    paddingLeft: theme.spacing(0),
+    paddingLeft: theme.spacing(0.5),
     paddingRight: theme.spacing(0),
     '& .Mui-selected': {
       color: theme.palette.primary.main,

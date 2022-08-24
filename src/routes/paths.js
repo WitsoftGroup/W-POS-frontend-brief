@@ -4,6 +4,7 @@ const ROOT_AUTH = '/auth';
 const ROOT_HOME = '/inicio';
 const ROOT_PERSON = '/personas';
 const ROOT_PROFILE = '/perfil';
+const ROOT_SERVICE = '/servicios';
 
 export const PATH_AUTH = {
   root: ROOT_AUTH,
@@ -14,6 +15,11 @@ export const PATH_AUTH = {
 
 export const PATH_HOME = {
   root: ROOT_HOME
+};
+
+export const PATH_SERVICE = {
+  root: ROOT_SERVICE,
+  soat: path(ROOT_SERVICE, '/soat')
 };
 
 export const PATH_PERSON = {

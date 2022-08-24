@@ -29,7 +29,7 @@ const CardStyle = styled(Card)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'center',
-  padding: theme.spacing(4, 2),
+  padding: theme.spacing(4, 3),
   margin: theme.spacing(0)
 }));
 
@@ -80,8 +80,7 @@ const ForgotPassword = () => {
             </Box>
             <Box mb={4}>
               <Typography variant="p">
-                Recuperar la contraseña es fácil, te enviaremos una nueva por
-                e-mail
+                Te enviaremos un link de recuperación por e-mail
               </Typography>
             </Box>
             <ForgotPasswordForm onSubmit={onSubmit} />

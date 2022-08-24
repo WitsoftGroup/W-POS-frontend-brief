@@ -47,15 +47,13 @@ const ChangePasswordForm = ({
   const PasswordSchema = Yup.object().shape(passwordSchema);
 
   const PasswordSchemaHasCurrentPassword = Yup.object().shape({
-    currentPassword: Yup.string().required(
-      'Por favor digite su contraseña actual'
-    ),
+    password: Yup.string().required('Por favor digite su contraseña actual'),
     ...passwordSchema
   });
 
   const formik = useFormik({
     initialValues: {
-      currentPassword: '',
+      password: '',
       newPassword: '',
       confirmPassword: ''
     },
@@ -73,14 +71,15 @@ const ChangePasswordForm = ({
         {hasCurrentPasswordField && (
           <TextField
             fullWidth
-            name="currentPassword"
+            size="small"
+            name="password"
             label="Contraseña actual"
-            sx={{ marginBottom: 2 }}
+            sx={{ marginBottom: 3 }}
             placeholder="Digite su contraseña actual"
             type={showCurrentPassword ? 'text' : 'password'}
-            {...getFieldProps('currentPassword')}
-            error={Boolean(touched.currentPassword && errors.currentPassword)}
-            helperText={touched.currentPassword && errors.currentPassword}
+            {...getFieldProps('password')}
+            error={Boolean(touched.password && errors.password)}
+            helperText={touched.password && errors.password}
             InputProps={{
               endAdornment: (
                 <InputAdornment position="end">
@@ -158,12 +157,11 @@ const ChangePasswordForm = ({
             )
           }}
         />
-        <Box sx={{ marginTop: 1, display: 'flex', justifyContent: 'center' }}>
+        <Box sx={{ marginTop: 1, display: 'flex', justifyContent: 'flex-end' }}>
           <Button
             fullWidth={buttonFullWidth}
             variant="contained"
             type="primary"
-            sx={{ px: 5 }}
           >
             Enviar
           </Button>

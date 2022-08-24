@@ -22,6 +22,7 @@ import ScrollBar from 'components/ui-components/ScrollBar';
 import Modal from 'components/ui-components/Modal';
 import { PATH_PROFILE } from 'routes/paths';
 
+import logo from 'assets/logo/TramiCard_LOGO.png';
 import MenuLinks from './utils/SidebarConfig';
 import SidebarItem from './components/SidebarItem';
 import PoweredBy from './components/PoweredBy/PoweredBy';
@@ -45,9 +46,18 @@ const AccountStyle = styled('div')(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',
   padding: theme.spacing(2, 2.5),
-  margin: theme.spacing(1, 2.5, 5),
+  margin: theme.spacing(1, 2.5, 2),
   borderRadius: theme.shape.borderRadiusSm,
   backgroundColor: theme.palette.grey[500_12]
+}));
+
+const LogoWrapper = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  boxShadow: theme.shadows[3],
+  borderRadius: '100%',
+  border: `1px solid ${theme.palette.divider}`
 }));
 
 // ----------------------------------------------------------------------
@@ -127,10 +137,10 @@ const DashboardSidebar = ({ isOpenSidebar, onCloseSidebar }) => {
 
   const renderContent = (
     <ScrollBar>
-      <Box sx={{ px: 2.5, py: 2 }}>
-        <Typography variant="h4" color="primary" letterSpacing={3}>
-          {process.env.REACT_APP_PARTNER_NAME}
-        </Typography>
+      <Box display="flex" justifyContent="center" py={2}>
+        <LogoWrapper>
+          <Avatar src={logo} sx={{ width: 100, height: 100 }} />
+        </LogoWrapper>
       </Box>
       <Link underline="none" component={RouterLink} to={PATH_PROFILE.root}>
         <AccountStyle>

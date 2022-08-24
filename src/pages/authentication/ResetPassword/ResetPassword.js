@@ -29,7 +29,7 @@ const CardStyle = styled(Card)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'center',
-  padding: theme.spacing(4, 2),
+  padding: theme.spacing(4, 3),
   margin: theme.spacing(0)
 }));
 
@@ -77,6 +77,7 @@ const ResetPassword = () => {
               </Typography>
             </Box>
             <ChangePasswordForm
+              buttonFullWidth={false}
               hasCurrentPasswordField={false}
               onSubmit={onSubmit}
             />
