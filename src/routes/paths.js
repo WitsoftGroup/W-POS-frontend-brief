@@ -19,7 +19,7 @@ export const PATH_HOME = {
 
 export const PATH_SERVICE = {
   root: ROOT_SERVICE,
-  soat: path(ROOT_SERVICE, '/soat')
+  new: path(ROOT_SERVICE, '/nuevo')
 };
 
 export const PATH_PERSON = {

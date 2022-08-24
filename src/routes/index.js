@@ -101,8 +101,8 @@ export const routes = [
         component: lazy(() => import('pages/Dashboard'))
       },
       {
-        path: PATH_SERVICE.soat,
-        component: lazy(() => import('pages/Dashboard'))
+        path: PATH_SERVICE.new,
+        component: lazy(() => import('pages/services/CreateService'))
       }
     ]
   },

@@ -36,8 +36,8 @@ const sidebarConfig = [
         href: PATH_SERVICE.root,
         items: [
           {
-            title: 'SOAT',
-            href: PATH_SERVICE.soat
+            title: 'Nuevo servicio',
+            href: PATH_SERVICE.new
           }
         ]
       },
