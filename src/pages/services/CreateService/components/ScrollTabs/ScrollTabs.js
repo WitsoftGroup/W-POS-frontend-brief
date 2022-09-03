@@ -6,14 +6,25 @@ import { experimentalStyled as styled } from '@mui/material/styles';
 import { Add } from '@mui/icons-material';
 
 const StyledRoot = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  maxWidth: '100%',
+  alignItems: 'center',
+  justifyContent: 'start',
+  marginBottom: theme.spacing(2),
+  [theme.breakpoints.up('md')]: {
+    marginBottom: theme.spacing(3)
+  }
+}));
+
+const StyledTabsContainer = styled(Box)(({ theme }) => ({
   height: 60,
-  width: '100%',
+  // width: '100%',
   display: 'flex',
   borderRadius: 8,
   overflowX: 'scroll',
   alignItems: 'center',
   justifyContent: 'flex-start',
-  marginBottom: theme.spacing(2),
+  marginRight: theme.spacing(2),
   padding: theme.spacing(1, 0),
   '&::-webkit-scrollbar': {
     display: 'none'
@@ -22,8 +33,7 @@ const StyledRoot = styled(Box)(({ theme }) => ({
     marginRight: theme.spacing(1)
   },
   [theme.breakpoints.up('md')]: {
-    borderRadius: 16,
-    marginBottom: theme.spacing(3)
+    borderRadius: 16
   }
 }));
 
@@ -52,15 +62,17 @@ const ScrollTabs = ({ spaces = [], onAddSpace, onSelectSpace }) => {
 
   return (
     <StyledRoot>
-      {spaces.map((space, index) => (
-        <ButtonBase
-          key={index}
-          onClick={() => handleSelectService(space, index)}
-        >
-          <StyledCard selectedSpace={index === selectedSpace} />
-        </ButtonBase>
-      ))}
-      <Tooltip title="Agregar servicio" placement="top">
+      <StyledTabsContainer>
+        {spaces.map((space, index) => (
+          <ButtonBase
+            key={index}
+            onClick={() => handleSelectService(space, index)}
+          >
+            <StyledCard selectedSpace={index === selectedSpace} />
+          </ButtonBase>
+        ))}
+      </StyledTabsContainer>
+      <Tooltip title="Nuevo servicio" placement="top">
         <StyledButton onClick={handleAddService}>
           <Add color="primary" />
         </StyledButton>

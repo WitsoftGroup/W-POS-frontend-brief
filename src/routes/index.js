@@ -1,6 +1,6 @@
 import React, { Fragment, Suspense, lazy } from 'react';
 
-import { Routes, Route, Navigate, useLocation } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
 
 import RouteProgress from 'components/ui-components/RouteProgress';
 import DashboardLayout from 'components/layouts/DashboardLayout';
@@ -21,21 +21,16 @@ export const renderRoutesList = (routes = []) =>
     const Guard = route.guard || Fragment;
     const Layout = route.layout || Fragment;
     if (!route.routes) {
-      if (route.path === '/') {
-        return (
-          <Route
-            key={index}
-            path={route.path}
-            element={<Navigate to={PATH_HOME.root} />}
-          />
-        );
-      }
       return (
         <Route
           key={index}
           path={route.path}
           element={
-            <Suspense fallback={<RouteProgress />}>
+            <Suspense
+              fallback={
+                route.path === PATH_HOME.root ? null : <RouteProgress />
+              }
+            >
               <Guard>
                 <Layout>
                   <Component />
@@ -92,7 +87,7 @@ export const routes = [
       },
       {
         path: '/',
-        component: () => {}
+        component: () => <Navigate to={PATH_HOME.root} />
       },
       // person
       {
