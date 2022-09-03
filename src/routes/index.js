@@ -26,7 +26,11 @@ export const renderRoutesList = (routes = []) =>
           key={index}
           path={route.path}
           element={
-            <Suspense fallback={<RouteProgress />}>
+            <Suspense
+              fallback={
+                route.path === PATH_HOME.root ? null : <RouteProgress />
+              }
+            >
               <Guard>
                 <Layout>
                   <Component />
@@ -101,8 +105,8 @@ export const routes = [
         component: lazy(() => import('pages/Dashboard'))
       },
       {
-        path: PATH_SERVICE.soat,
-        component: lazy(() => import('pages/Dashboard'))
+        path: PATH_SERVICE.new,
+        component: lazy(() => import('pages/services/CreateService'))
       }
     ]
   },
