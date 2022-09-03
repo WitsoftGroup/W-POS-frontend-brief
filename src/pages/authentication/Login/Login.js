@@ -45,7 +45,7 @@ const Login = () => {
     dispatch(
       login({
         password,
-        documentNumber
+        documentNumber: documentNumber.replace('.', '')
       })
     )
       .then(() => {
