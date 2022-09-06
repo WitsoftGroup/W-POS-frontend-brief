@@ -41,11 +41,12 @@ const Login = () => {
 
   const onSubmit = (data, { setErrors }) => {
     const { password, remember: changedRemember, documentNumber } = data;
+
     dispatch(setRemember(changedRemember));
     dispatch(
       login({
         password,
-        documentNumber: documentNumber.replace('.', '')
+        documentNumber: documentNumber.replace(/[^0-9]/g, '')
       })
     )
       .then(() => {
