@@ -19,7 +19,8 @@ export const PATH_HOME = {
 
 export const PATH_SERVICE = {
   root: ROOT_SERVICE,
-  new: path(ROOT_SERVICE, '/nuevo')
+  new: path(ROOT_SERVICE, '/nuevo'),
+  list: path(ROOT_SERVICE, '/lista')
 };
 
 export const PATH_PERSON = {

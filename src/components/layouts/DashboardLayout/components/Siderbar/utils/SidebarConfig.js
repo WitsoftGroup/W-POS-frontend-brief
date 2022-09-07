@@ -38,6 +38,10 @@ const sidebarConfig = [
           {
             title: 'Nuevo servicio',
             href: PATH_SERVICE.new
+          },
+          {
+            title: 'Lista de servicios',
+            href: PATH_SERVICE.list
           }
         ]
       },

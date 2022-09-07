@@ -21,7 +21,6 @@ const ListItemStyle = styled(ListItem)(({ theme }) => ({
   ...theme.typography.body2,
   height: 40,
   fontSize: theme.typography.pxToRem(16),
-  textTransform: 'capitalize',
   paddingLeft: theme.spacing(2.5),
   paddingRight: theme.spacing(2.5),
   color: theme.palette.text.secondary,

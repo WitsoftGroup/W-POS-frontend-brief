@@ -107,6 +107,10 @@ export const routes = [
       {
         path: PATH_SERVICE.new,
         component: lazy(() => import('pages/services/CreateService'))
+      },
+      {
+        path: PATH_SERVICE.list,
+        component: lazy(() => import('pages/services/ServiceList'))
       }
     ]
   },
